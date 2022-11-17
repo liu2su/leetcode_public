@@ -3,6 +3,16 @@
 二维数组内存地址是否连续取决于编程语言
 
 Binary search
+精讲： https://leetcode.cn/problems/find-first-and-last-position-of-element-in-sorted-array/solution/er-fen-cha-zhao-suan-fa-xi-jie-xiang-jie-by-labula/
 使用条件： 1. 数组
           2. 有序排列
           3. 无重复元素
+         
+binary search 的关键是边界条件，binary search 的本质是两条边界left 和 right 根据判断结果
+改变最后相遇的过程。所以选取left和right的位置很重要
+计算mid 的方法：
+          1. (left + right)/2 这种方法可能会造成溢出（overflow）,比如相加之后的和会超过data type能表达的最大值
+          2. (left - tight)/2 + left 可以避免overflow
+          
+while 区间如何判断？
+1. left <= right, 此时的 [left,right] lfet, right 边界都包含在了需要搜索的范围内，此时stop condition 是left == righr + 1
