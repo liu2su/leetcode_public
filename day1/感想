@@ -23,3 +23,4 @@ while 区间如何判断？
 
 27.Remove Element
 
+暴力解法：双for循环，时间复杂度为O（n^2）
