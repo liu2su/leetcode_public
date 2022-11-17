@@ -2,7 +2,7 @@
 数组下标都是从0开始的
 二维数组内存地址是否连续取决于编程语言
 
-Binary search
+704.Binary search
 精讲： https://leetcode.cn/problems/find-first-and-last-position-of-element-in-sorted-array/solution/er-fen-cha-zhao-suan-fa-xi-jie-xiang-jie-by-labula/
 使用条件： 1. 数组
           2. 有序排列
@@ -16,3 +16,10 @@ binary search 的关键是边界条件，binary search 的本质是两条边界l
           
 while 区间如何判断？
 1. left <= right, 此时的 [left,right] lfet, right 边界都包含在了需要搜索的范围内，此时stop condition 是left == righr + 1
+2. left < right, 此时 right = num.length
+
+边界问题
+以左闭右闭举例，循环不变量是：所查找的元素范围包含在left和right之中，如果我们更新边界时，没有mid +1 或-1会破坏这个不变量
+
+27.Remove Element
+
