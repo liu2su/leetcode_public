@@ -4,30 +4,18 @@
     
     *双指针解法
     
-    class Solution {
-    public int[] sortedSquares(int[] nums) {
-        int pointer_left = 0;
-        int pointer_right = nums.length - 1;
-        int[] result = new int[nums.length];
-        int j = nums.length - 1;
-        while(pointer_left <= pointer_right){
-            if(nums[pointer_right]*nums[pointer_right] < nums[pointer_left]*nums[pointer_left]){
-                result[j] = nums[pointer_left] * nums[pointer_left];
-                pointer_left ++;
-                j --;
-            }
-            if(nums[pointer_right]*nums[pointer_right] >= nums[pointer_left]*nums[pointer_left]){
-                result[j] = nums[pointer_right] * nums[pointer_right];
-                pointer_right --;
-                j --;
-            }
-        }
-        return result;
-    }
-}
-    
     因为一个 non-decreasing 数组最左侧的值一定是最小值，最右侧的值一定是最大值，平方之后的最大最小值也一定处于最左侧或最右侧。
     设置两个指针，分别指向最左侧和最右侧. 通过比较两个指针指向的值，我们取平方后两个元素的的最大值。从右向左地排列在新的数组中。
     取值后，移动指针到下一个位置，注意循环停止条件为（left <= right）,有等号，因为当left = right时，还有一个元素没有放入新数组。
     
 
+209. Minimum Size Subarray Sum
+
+    暴力解法的时间复杂度为O（n^2）
+    slide windows:
+    在暴力解法中，是一个for循环滑动窗口的起始位置，一个for循环为滑动窗口的终止位置，用两个for循环 完成了一个不断搜索区间的过程。(即一个for循环就是一个滑动窗口,只不过两个
+    滑动窗口是严格遍历完数组的所有元素）
+    而滑动窗口的精妙之处在于根据当前子序列和大小的情况，不断调节子序列的起始位置。从而将O(n^2)暴力解法降为O(n)。
+    那么既然是一个for循环，这个for循环代表的就是滑动窗口的右窗口，当右窗口遍历到数组末端时，循环结束.
+    那么我们如何移动窗口左侧呢，我们需要while循环
+    
