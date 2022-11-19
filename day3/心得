@@ -1,0 +1,9 @@
+链表 linked list
+数组是在内存中是连续分布的，但是链表在内存中可不是连续分布的。链表是通过指针域的指针链接在内存中各个节点。
+数组在定义的时候，长度就是固定的，如果想改动数组的长度，就需要重新定义一个新的数组。适用于频繁查询较少增删的场景
+链表的长度可以是不固定的，并且可以动态增删， 适合数据量不固定，频繁增删，较少查询的场景。
+
+203 Remove Linked List Elements
+    移除链表的元素，如果移除的是头元素，那么head存储的地址应该改为第二个节点，如果移除的是其他元素，那么则是将需要移除的前一个结点指向需要删除的节点的后一个
+    for handling both cases, we develop a method called virtual head node(or dummy node),只需要记住，return 头结点的时候，别忘了 return dummyNode->next;， 这才是新的头结点.
+    
