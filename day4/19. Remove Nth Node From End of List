@@ -1,0 +1,33 @@
+19. Remove Nth Node From End of List
+因为涉及到了链表的删除，所以还是利用虚拟头结点的思想答题
+这里还用到了一个快慢双指针的思想，设置一个快指针，一个慢指针，两个指针初始都指向虚拟头节点，快指针先走n+1步，
+然后两个指针同时移动，当快指针指向null时，慢指针指向的就是需要删除的节点。
+为什么是n+1个节点？
+因为删除当前节点需要借助此节点的前一个节点，因此慢指针指向的节点应该为需要删除节点的上一个节点.
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode dummy_head = new ListNode(-1,head);
+        ListNode fast = dummy_head;
+        ListNode slow = dummy_head;
+        for(int i = 0;i <= n;i++ ){
+            fast = fast.next;
+        }
+        while(fast != null){
+            fast = fast.next;
+            slow = slow.next;
+        }
+        slow.next = slow.next.next;
+        return dummy_head.next;
+    }
+}
