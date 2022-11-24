@@ -1,0 +1,8 @@
+本题也是字符串翻转问题，只不过增加了很多复杂的条件，但是本质上还是用双指针来翻转字符串
+因为在java中string是无法改变的，所以我们首先要用函数toCharArray()将字符串改为字符数组。
+难点是确定left和right的位置：
+首先，因为我们要对从零开始，字符串内每个2k长度的子字符串进行翻转，所以left指针是一个每次增加2k的变量，所以要存在一个for循环（注意循环内为2*k而不是2k）
+在循环内我们要进行判断，判断从left指针起往后的元素数量：
+  如果s.length - (left + 2*k - 1) >= 0, 则说明区间[left, left + 2*k -1 ] 存在， 则翻转前k个, 此时right = left  + k - 1;
+  如果s.length - (left + 2*K - 1) < 0 且  s.length - (left + 2*K - 1) >= 0, 说明此时区间[left , left + k - 1] 存在，此时right = left + k -1
+  如果s.length - (left + 2*K - 1) < 0 说明区间小于[left, left + k - 1]，翻转全部。此时right = 最后下标
