@@ -1,1 +1,10 @@
 binary tree -- 二叉树
+full binary tree - 如果一棵二叉树只有度为0的结点和度为2的结点，并且度为0的结点在同一层上，则这棵二叉树为满二叉树。A n depth full binary tree has 2^n - 1 nodes.
+complete binary ree - 在完全二叉树中，除了最底层节点可能没填满外，其余每层节点数都达到最大值，并且最下面一层的节点都集中在该层最左边的若干位置。
+                      若最底层为第 h 层，则该层包含 1~ 2^(h-1)  个节点。
+full binary tree is complete bianry tree.
+
+binary search tree - a tree which each node in tree has a value and：
+              1. If its left subtree is not empty, the values of all nodes on the left subtree are less than the value of its root node;
+              2. If its right subtree is not empty, the values of all nodes on the right subtree are greater than the value of its root node;
+              3. Its left and right subtrees are also binary sorted trees
