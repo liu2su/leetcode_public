@@ -55,11 +55,50 @@ public class TreeNode {
 As I said, binary tree BFS的遍历是通过递归实现的， 那么如何科学的写递归呢？
 递归是对function的重复调用，如果没有科学的递归方法，就会感觉，递归像是一个玄学的东西，所以写好递归一定要确定下面三个要素：
 
-1. 确定递归函数的参数(parameter)和返回值(return type and value)： 确定哪些参数是递归的过程中需要处理的，那么就在递归函数里加上这个参数， 并且还要明确每次递归的返回值是什么进而确定递归函数的返回类型。
+1. 确定递归函数的参数(parameter)和返回值(return type and value)： 确定哪些参数是递归的过程中需要处理的，那么就在递归函数里加上这个参数， 
+    并且还要明确每次递归的返回值是什么进而确定递归函数的返回类型。
 2. 确定终止条件： 写完了递归算法, 运行的时候，经常会遇到栈溢出的错误，就是没写终止条件或者终止条件写的不对，操作系统也是用一个栈的结构来保存每一层递归的信息，
     如果递归没有终止，操作系统的内存栈必然就会溢出。
 3. 确定单层递归的逻辑： 确定每一层递归需要处理的信息。在这里也就会重复调用自己来实现递归的过程。
 
 下面看几道题：
 144. Binary Tree Preorder Traversal
+1. 确定递归函数的参数和返回值：因为要打印出前序遍历节点的数值，所以参数里需要传入vector在放节点的数值，除了这一点就不需要在处理什么数据了也不需要有返回值，
+  所以递归函数返回类型就是void：
+2. 确定终止条件：在递归的过程中，如何算是递归结束了呢，当然是当前遍历的节点是空了，那么本层递归就要要结束了，所以如果当前遍历的这个节点是空，就直接return.
+  注意：一定要先判断节点是否为空再操作它的成员变量  避免空指针异常
+3. 确定单层递归的逻辑：前序遍历是中左右的循序，所以在单层递归的逻辑，是要先取中节点的数值：
+  单层递归的逻辑就是按照中左右的顺序来处理的，这样二叉树的前序遍历，基本就写完了，再看一下完整代码：
 
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public List<Integer> preorderTraversal(TreeNode root) {
+       List<Integer> result = new ArrayList<Integer>();
+       preorder(root, result);
+       return result;
+        
+    }
+     public void preorder(TreeNode cur, List<Integer> result){
+         if(cur == null){
+             return;
+
+        }
+         result.add(cur.val);
+         preorder(cur.left,result);
+         preorder(cur.right,result);
+    }
+}
