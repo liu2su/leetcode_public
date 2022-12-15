@@ -102,3 +102,6 @@ class Solution {
          preorder(cur.right,result);
     }
 }
+下面两道题同理
+# 145. Binary Tree Postorder Traversal
+# 94. Binary Tree Inorder Traversal
