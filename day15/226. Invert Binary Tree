@@ -1,0 +1,45 @@
+226. Invert Binary Tree
+这里的翻转指的是镜像翻转，背后有一个让程序员心酸的故事，听说 Homebrew的作者Max Howell，就是因为没在白板上写出翻转二叉树，最后被Google拒绝了。
+虽然简单但是很常考，值得一刷。
+这道题用递归法中的前序遍历和后序遍历来做这道题，既然是递归，就要确定递归三要素：
+1. 确定递归函数的参数和返回值
+  参数就是要传入节点的指针，不需要其他参数了，通常此时定下来主要参数，如果在写递归的逻辑中发现还需要其他参数的时候，随时补充。
+  返回值的话其实也不需要，但是题目中给出的要返回root节点的指针，可以直接使用题目定义好的函数，所以就函数的返回类型为TreeNode。
+2. 确定终止条件:
+  当前节点为空的时候，就返回。
+3.确定单层递归的逻辑:
+  因为是先前序遍历，所以先进行交换左右孩子节点，然后反转左子树，反转右子树。
+  代码如下：
+  -----------------------------------------------------
+  /**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        Invert(root);
+        return root;
+    }
+    public void Invert(TreeNode node){
+        if(node == null){
+            return;
+        }
+        TreeNode temp_node = node.left;
+        node.left = node.right;
+        node.right = temp_node;
+        Invert(node.left);
+        Invert(node.right);
+
+    }
+}
