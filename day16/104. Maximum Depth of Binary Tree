@@ -1,0 +1,44 @@
+104. Maximum Depth of Binary Tree
+首先明确二叉树高度（height）和深度（depth）的区别：
+  1 二叉树节点的深度：指从根节点到该节点的最长简单路径边的条数或者节点数（取决于深度从0开始还是从1开始）
+  2 二叉树节点的高度：指从该节点到叶子节点的最长简单路径边的条数或者节点数（取决于高度从0开始还是从1开始）
+但是无论是层序遍历还是前中后序遍历，我们都是从root开始的，那么如如何计算一个binary tree 的深度呢？需要注意的是：
+  根节点的高度就是这棵二叉树的最大深度
+因此我们还是可以通过后续遍历来遍历，通过后序遍历，我们来比较当前节点left subtree 和 right sub tree的深度，取最大值即可。
+为什么是后续遍历？因为后续遍历是左右中，而中指的就是我们需要操作的中间节点，我们需要先得到左右节点的数据才能处理中间节点。
+确定遍历三要素：
+  1 确定递归函数的参数和返回值：参数就是传入树的根节点，返回就返回这棵树的深度，所以返回值为int类型。
+  2 确定终止条件：如果为空节点的话，就返回0，表示高度为0。
+  3 确定单层递归的逻辑：先求它的左子树的深度，再求的右子树的深度，最后取左右深度最大的数值 再+1 （加1是因为算上当前中间节点）就是目前节点为根节点的树的深度。
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public int maxDepth(TreeNode root) {
+        int result = 0;
+        result = postorder(root);
+        return result;
+    }
+
+    public int postorder(TreeNode node){
+        if (node == null){
+            return 0;
+        }
+        int left = postorder(node.left);
+        int right = postorder(node.right);
+        return Math.max(left,right) + 1;
+
+    }
+}
