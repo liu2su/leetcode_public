@@ -1,0 +1,59 @@
+110. Balanced Binary Tree
+这道题让我们判断一个binary tree 是不是 balanced binary tree.
+balance tree是什么，这么理解：如何一个节点，左子树和右子树的高度（height）差不超过1
+既然要求高度，那么我们就需要用到后序遍历来解决这道题。
+确定recursion三要素：
+递归三步曲分析：
+
+1 明确递归函数的参数和返回值
+  参数：当前传入节点。
+  返回值：以当前传入节点为根节点的树的高度。
+  那么如何标记左右子树是否差值大于1呢？
+  如果当前传入节点为根节点的二叉树已经不是二叉平衡树了，还返回高度的话就没有意义了。
+  所以如果已经不是二叉平衡树了，可以返回-1 来标记已经不符合平衡树的规则了。
+2 明确终止条件
+  递归的过程中依然是遇到空节点了为终止，返回0，表示当前节点为根节点的树高度为0
+3 明确单层递归的逻辑
+  如何判断以当前传入节点为根节点的二叉树是否是平衡二叉树呢？当然是其左子树高度和其右子树高度的差值。
+  分别求出其左右子树的高度，然后如果差值小于等于1，则返回当前二叉树的高度，否则则返回-1，表示已经不是二叉平衡树了。
+  
+  /**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public boolean isBalanced(TreeNode root) {
+        return check(root) != -1;
+    }
+
+    public int check(TreeNode node){
+        if (node == null){
+            return 0;
+        }
+        int left = check(node.left);
+        int right = check(node.right);
+        if (left == -1){
+            return -1;
+        }
+        if (right == -1){
+            return -1;
+        }
+
+        if(Math.abs(left - right) > 1){
+            return - 1;
+        }
+
+        return Math.max(left,right) + 1;
+    }
+}
