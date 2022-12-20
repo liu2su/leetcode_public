@@ -1,0 +1,43 @@
+112. Path Sum
+这道题没啥可说的，自己搞懂16题就很简单
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public boolean hasPathSum(TreeNode root, int targetSum) {
+        boolean result;
+        result = traversal(root,0,targetSum);
+        return result;
+    }
+
+    public boolean traversal(TreeNode node, int temp_sum, int targetSum){
+        if(node == null){
+            return false;
+        }
+        if(node.left == null && node.right == null){
+            if(temp_sum + node.val == targetSum) { return true;}
+            else{return false;}
+        }
+
+       if(traversal(node.left,temp_sum + node.val,targetSum) == true){
+           return true;
+       };
+        if(traversal(node.right,temp_sum + node.val,targetSum) == true){
+            return true;
+        }
+
+        return false;
+    }
+}
