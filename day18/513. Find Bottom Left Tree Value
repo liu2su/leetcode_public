@@ -1,0 +1,56 @@
+513. Find Bottom Left Tree Value
+Given the root of a binary tree, return the leftmost value in the last row of the tree.
+两个要点：1 最靠左的值 2 最后一行
+所以这道题不是一直向左遍历就可以解决的（这是一个误区）
+上面这两个要点也是我们在写这道题时要时刻保证的两点，
+我们如何保证最后一行？保证是最大深度即可，如何保证是leaf node？判定left 和 right 都为 null
+我们如何保证是最靠左的值？通过遍历顺序即可，因为我们对中间节点不操作，所以三种遍历方法都是可以的（因为都是先遍历left）
+在此基础上我们给出3 facts of recursion:
+1 determine parameter anf return value:
+  参数必须有要遍历的树的根节点，还有就是一个int型的变量用来记录最长深度。 这里就不需要返回值了，所以递归函数的返回类型为void。
+  本题还需要类里的两个全局变量，maxLen用来记录最大深度，result记录最大深度最左节点的数值。
+2 determine conditions to end
+  当遇到叶子节点的时候，就需要统计一下最大的深度了，所以需要遇到叶子节点来更新最大深度。
+3 determine the process of each recursion
+  除了判断叶子节点记录深度和value外，还需要对节点进行回溯。
+  
+  /**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    int depth = 0;
+    int value = 0;
+    public int findBottomLeftValue(TreeNode root) {
+        value = root.val;
+        traverse(root, 1);
+        return value;
+    }
+    public void traverse(TreeNode node, int deep){
+        if(node.left == null && node.right == null){
+            if(deep > depth){
+                depth = deep;
+                value = node.val;
+            }
+            return;
+        }
+
+        if(node.left != null){
+            traverse(node.left,deep+1);
+        }
+        if(node.right != null){
+            traverse(node.right, deep + 1);
+        }
+    }
+}  
