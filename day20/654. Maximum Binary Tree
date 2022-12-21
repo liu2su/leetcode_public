@@ -1,0 +1,58 @@
+654. Maximum Binary Tree
+对于构造binary tree的题目，一般采用preorder，因为先构造中间节点，然后递归构造左子树和右子树。
+构造binary tree 还需要递归，所以determine the 3 factors of resursion:
+1 define return value and parameter
+  参数传入的是存放元素的数组，返回该数组构造的二叉树的头结点，返回类型root
+2 define termination condition
+  当遍历到叶子节点或者空节点时，返回叶子节点或null，叶子节点对应的数组size为1， 空节点对应数组size 为.
+3 Determine the logic for a single loop of recursion
+  这里我们是要对中间节点进行操作的，
+  先要找到数组中最大的值和对应的下标， 最大的值构造根节点，下标用来下一步分割数组。
+  最大值所在的下标左区间 构造左子树
+  最大值所在的下标右区间 构造右子树
+  
+  /**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public TreeNode constructMaximumBinaryTree(int[] nums) {
+        int left = 0;
+        int right = nums.length - 1;
+        TreeNode root = construct(nums,left,right);
+        return root;
+    }
+
+    public TreeNode construct(int[] nums, int left ,int right){
+        if (left > right){
+            return null;
+        }
+        if (left == right){
+            TreeNode node = new TreeNode(nums[left]);
+            return node;
+        }
+        int node_value = 0;
+        int array_index = 0;
+        for(int i = left; i <= right; i++){
+            if(nums[i] > node_value){
+                node_value = nums[i];
+                array_index = i;
+            }
+        }
+        TreeNode node_1 = new TreeNode(node_value);
+        node_1.left = construct(nums,left,array_index -1 );
+        node_1.right = construct(nums,array_index + 1,right);
+        return node_1;
+    }
+}
