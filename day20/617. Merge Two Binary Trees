@@ -1,1 +1,50 @@
 617. Merge Two Binary Trees
+这题很简单，继续使用递归和前序遍历：
+那么我们来按照递归三部曲来解决：
+1 确定递归函数的参数和返回值：
+  首先要合入两个二叉树，那么参数至少是要传入两个二叉树的根节点，返回值就是合并之后二叉树的根节点。
+2 终止条件：
+  当操作完当前两个节点后返回
+3 determine process of each loop in recursion
+  因为涉及到了对中间节点的操作（建立新节点），我们这里用前序遍历。
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public TreeNode mergeTrees(TreeNode root1, TreeNode root2) {
+        TreeNode root;
+        root = merge(root1,root2);
+        return root;
+    }
+
+    public TreeNode merge(TreeNode root1, TreeNode root2){
+        if (root1 == null && root2 != null){
+            return root2;
+        }
+        if (root1 != null && root2 == null){
+            return root1;
+        }
+        if (root1 == null && root2 == null){
+            return null;
+        }
+
+        int new_value = root1.val + root2.val;
+        TreeNode node_new = new TreeNode(new_value);
+        node_new.left = merge(root1.left,root2.left);
+        node_new.right = merge(root1.right,root2.right);
+        return node_new; 
+    }
+}
