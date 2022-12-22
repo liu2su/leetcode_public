@@ -1,0 +1,10 @@
+501. Find Mode in Binary Search Tree
+这道题还是利用了利用inorder traversal遍历BST可以得到一个ascending array的特点，
+看到二叉搜索数就要想到中序遍历！
+统计高频元素的代码技巧，通过这个技巧，只需要遍历一遍即可：
+1 设置global variable： int count_max 记录frequency of modes.
+2 设置global variable: int count 记录frequency of the current node （与双指针配合使用）
+3 设置global variable： TreeNode pre， 记录previous node, note: the initial value of pre is null，因为前序遍历一个遍历到的元素
+  为是extreme left他的pre是null.
+  
+ 
