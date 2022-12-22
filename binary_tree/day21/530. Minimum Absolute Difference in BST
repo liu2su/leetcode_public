@@ -1,0 +1,59 @@
+530. Minimum Absolute Difference in BST
+首先应该自然想到：最小绝对值就是二叉树中第一最小值和第二最小值的绝对值（因为条件里有：0 <= Node.val <= 105）
+二叉搜索树是有序的，通过inorder traversal 就可以把它变成一个 ascending array，这一点要注意，在把它变成一个array之后，使用双指针迭代即可解题。
+基本思路： 二叉搜索树中序遍历就是一个有序数组->有序数组的最小绝对值一定是两个相邻的值->也就是说：the minimum absolute value between two nodes in BST is diff between
+current node and last traversed node。
+当然我们也可以不用创建一个数组来使用中序遍历和双指针，操作如下：
+1 创建一个全局变量TreeNode pre = null 用来指向当前节点的前一个节点和一个全局变量 int min,用来记录最小值。
+递归：
+1. 确定返回值和参数
+    因为我们用到了中序遍历，所以传入参数是节点，又因为需要我们记录的pre和min都是全局变量，所以不需要传入他们，
+    既然是双指针，必然还有一个cur，其实cur就是我们传入的节点。
+2. 确定终止条件
+    当我们的节点为空的，函数return一个空表示结束。    
+3 确定递归的单层逻辑
+    需要记住的是：我们用的是DFS里的中序遍历，我们最开始的节点是BST的 extremely left,从这个节点开始遍历二叉树的每一个节点。
+    如何更新pre节点：
+    assign current node to previous node before traverse right-subtree.
+    
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    TreeNode pre = null;
+    int min = 100000;
+    public int getMinimumDifference(TreeNode root) {
+        if(root == null){
+            return 0;
+        }
+        traverse(root);
+        return min;
+    }
+
+    public void traverse(TreeNode node){
+        if (node == null){
+            return;
+        }
+        traverse(node.left);
+        if(pre != null){
+            min = Math.min(min,Math.abs(pre.val - node.val));
+        }
+        pre = node;
+        traverse(node.right);
+
+    }
+}
