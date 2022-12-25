@@ -14,6 +14,8 @@
 因为回溯法解决的都是在集合中递归查找子集，集合的大小就构成了树的宽度，递归的深度，都构成的树的深度。
 递归就要有终止条件，所以必然是一棵高度有限的树（N叉树）。
 
+剩下的问题递归可以解决，和递归三要素没有差别，只是加了一个回溯的步骤
+
 class Solution {
     List<List<Integer>> result = new ArrayList<>();
     List<Integer> path = new ArrayList<>();
