@@ -1,1 +1,47 @@
 216. Combination Sum III
+这道题和77题组合非常相似。1到9相当于树的宽度，k相当于树的深度
+确定递归三要素：
+1 确定函数参数和返回值：
+  在这里我们的result list 是全局变量，所以不需要返回值。
+  传入的参数有：n-目标值，题目要求的元素个数（也就是深度），startindex以及一个sum（记录path内当前的和，用于和n作比较）
+2 终止条件
+  当遍历到叶子节点时终止，叶子节点是的位置与树的深度有关，所以终止条件与k有关
+  当path.size() = k 时 return
+ 3 单层逻辑
+   递归+回溯:
+   sum -= i
+   path.romve(path.size() - 1)
+  
+  -------------------初始代码-------------------
+  class Solution {
+    List<List<Integer>> result = new ArrayList<>();
+    List<Integer> path = new ArrayList<>();
+    public List<List<Integer>> combinationSum3(int k, int n) {
+        backtracking(k,n,1,0);
+        return result;
+    }
+    public void backtracking(int k, int n ,int start,int sum){
+        if(path.size() == k){
+            if(sum == n){
+                result.add(new ArrayList<>(path)); // path is a reference type
+            }
+            return;
+        }
+        for(int i = start; i <=9;i++){
+            path.add(i);
+            sum = sum + i;
+            backtracking(k,n,i+1,sum);
+            path.remove(path.size() - 1);
+            sum = sum - i;
+        }    
+    }
+}
+--------------------trim---------------------
+剪枝的本质是是什么：是remove不需要考虑的路径，根据我上面说的，所有的回溯问题一定可以抽象为树的遍历，而树遍历的复杂度是由树的宽度和高度决定的
+也就是说：剪枝是在简化树的高度和宽度，即发生在终止条件和for循环之中（for 代表宽度，终止条件代表高度）从这个角度分析可以有两个剪枝：
+发生在终止条件：
+if (sum > targetSum) {
+			return;
+		}
+发生在for:
+for (int i = startIndex; i <= 9 - (k - path.size()) + 1; i++)
