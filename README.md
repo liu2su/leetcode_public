@@ -1,4 +1,5 @@
 # leetcode
+
 这是刷题记录和心得博客
 数据 Data
 数据元素 Data element
