@@ -1,0 +1,4 @@
+本帖记录一下最近刷题对two pointer的感悟：
+1.fist pointer 和 after pointer是存在某种联系的，try to find such connection when making pointers.
+2.when we apply two pointers? when we deal with array and linked list，双指针通常与for loop和whileloop一起使用，所以要考虑停止条件，不同的case会有不同的停止条件。
+在写linklist题目时先想想这道题会不会引起头节点的更改，如果会，考虑dummy node
